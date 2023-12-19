@@ -147,28 +147,6 @@ tl.fromTo('nav', {y: "-100%" }, { y: "0%" })
 // tl.fromTo(".title", { opacity: 0 }, { opacity: 1 })
 
 // Function to create a texture from regular text
-const createRegularTextTexture = (text) => {
-  const canvas = document.createElement('canvas');
-  const context = canvas.getContext('2d');
-
-  canvas.width = 256;
-  canvas.height = 256;
-
-      // Set the background color to orange
-      context.fillStyle = 'orange';
-      context.fillRect(0, 0, canvas.width, canvas.height);
-
-  // Set background and text properties for regular text
-  context.fillStyle = 'black'; // Black background
-  context.font = '32px Ropa Sans';
-  context.textAlign = 'center';
-  context.textBaseline = 'middle';
-  context.fillText(text, 128, 128);
-
-  return new THREE.CanvasTexture(canvas);
-};
-
-// Function to create a texture from regular text
 const createRegularTextTextureTwo = (text) => {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
@@ -277,6 +255,17 @@ setInterval(updateDateTexture, 3600000); // 3600000 ms = 1 hour
 // Initial time update
 updateTimeTexture();
 updateDateTexture();
+
+WebFont.load({
+  google: {
+    families: ['Ropa Sans']
+  },
+  active: function() {
+    updateTimeTexture();
+    updateDateTexture();
+  }
+});
+
 
 // Function to update the cube's properties each frame
 function animate(time) {
