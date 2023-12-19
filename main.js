@@ -250,6 +250,7 @@ fetchBitcoinPriceAndUpdate();
 // Refresh data every 15 seconds
 setInterval(fetchBlockCountAndUpdate, 15000);
 setInterval(fetchBitcoinPriceAndUpdate, 15000);
+setInterval(blockHalvening, 15000);
 
 // Function to update the time texture
 const updateTimeTexture = () => {
