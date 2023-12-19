@@ -257,7 +257,7 @@ const updateTimeTexture = () => {
   const now = new Date();
   const timeString = now.toLocaleTimeString();
   const timeTexture = createTimeTexture(timeString);
-  materials[0].map = timeTexture; // Update a specific face (e.g., the front face)
+  materials[0].map = timeTexture; // Update a specific face 
   materials[0].needsUpdate = true;
 };
 
@@ -266,17 +266,18 @@ const updateDateTexture = () => {
   const now = new Date();
   const dateString = now.toLocaleDateString();
   const dateTexture = createDateTexture(dateString);
-  materials[5].map = dateTexture; // Update another specific face (e.g., the right face)
+  materials[5].map = dateTexture; // Update another specific face 
   materials[5].needsUpdate = true;
 };
-
-// Update time every second and date every hour
-setInterval(updateTimeTexture, 1000);
-setInterval(updateDateTexture, 3600000); // 3600000 ms = 1 hour
 
 // Initial time update
 updateTimeTexture();
 updateDateTexture();
+
+// Update time every second and date every hour
+setInterval(updateTimeTexture, 1000);
+setInterval(updateDateTexture, 1000); // 3600000 ms = 1 hour
+
 
 
 // Function to update the cube's properties each frame
