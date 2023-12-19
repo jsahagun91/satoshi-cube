@@ -256,16 +256,6 @@ setInterval(updateDateTexture, 3600000); // 3600000 ms = 1 hour
 updateTimeTexture();
 updateDateTexture();
 
-WebFont.load({
-  google: {
-    families: ['Ropa Sans']
-  },
-  active: function() {
-    updateTimeTexture();
-    updateDateTexture();
-  }
-});
-
 
 // Function to update the cube's properties each frame
 function animate(time) {
