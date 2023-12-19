@@ -68,6 +68,28 @@ const createTimeTexture = (label) => {
   return new THREE.CanvasTexture(canvas);
 };
 
+const createDateTexture = (label) => {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  canvas.width = 256;
+  canvas.height = 256;
+
+    // Set the background color to orange
+    context.fillStyle = 'orange';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+  context.fillStyle = 'black';
+  context.font = '32px Ropa Sans';
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+ 
+  // Date
+  context.fillText(label, 128, 128);
+
+  return new THREE.CanvasTexture(canvas);
+};
+
 
 const cube = new THREE.Mesh(geometry, materials);
 scene.add(cube);
@@ -243,7 +265,7 @@ const updateTimeTexture = () => {
 const updateDateTexture = () => {
   const now = new Date();
   const dateString = now.toLocaleDateString();
-  const dateTexture = createTimeTexture(dateString);
+  const dateTexture = createDateTexture(dateString);
   materials[5].map = dateTexture; // Update another specific face (e.g., the right face)
   materials[5].needsUpdate = true;
 };
