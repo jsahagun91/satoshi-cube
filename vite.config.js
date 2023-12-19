@@ -9,7 +9,7 @@ export default {
       manifest: {
         name: `Satoshi's Cube`,
         short_name: `Satoshi's Cube`,
-        theme_color: '#ffffff',
+        theme_color: '#000000',
         icons: [
           {
             src: '/public/android-chrome-192x192.png', // Path to your icons
