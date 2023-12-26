@@ -68,4 +68,14 @@ nav ul {
     top: 15%;
     transform: translate(-50%, -25%);
   }
+
+  .title {
+    color: white;
+    z-index: 2;
+    position: absolute;
+    font-size: 1rem;
+    left: 50%;
+    top: 15%;
+    transform: translate(-50%, -25%);
+  }
 }

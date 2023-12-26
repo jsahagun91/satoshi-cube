@@ -22,6 +22,7 @@ export default {
             type: 'image/png',
           },
         ],
+        "orientation": "portrait",
       },
     }),
   ],
