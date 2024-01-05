@@ -100,27 +100,27 @@ const createTextTextureTop = (label, value) => {
   return new THREE.CanvasTexture(canvas);
 };
 
-const createDateTexture = (label) => {
-  const canvas = document.createElement('canvas');
-  const context = canvas.getContext('2d');
+// const createDateTexture = (label) => {
+//   const canvas = document.createElement('canvas');
+//   const context = canvas.getContext('2d');
 
-  canvas.width = 256;
-  canvas.height = 256;
+//   canvas.width = 256;
+//   canvas.height = 256;
 
-    // Set the background color to orange
-    context.fillStyle = 'purple';
-    context.fillRect(0, 0, canvas.width, canvas.height);
+//     // Set the background color to orange
+//     context.fillStyle = 'purple';
+//     context.fillRect(0, 0, canvas.width, canvas.height);
 
-  context.fillStyle = 'black';
-  context.font = '32px Ropa Sans';
-  context.textAlign = 'center';
-  context.textBaseline = 'middle';
+//   context.fillStyle = 'black';
+//   context.font = '32px Ropa Sans';
+//   context.textAlign = 'center';
+//   context.textBaseline = 'middle';
  
-  // Date
-  context.fillText(label, 128, 128);
+//   // Date
+//   context.fillText(label, 128, 128);
 
-  return new THREE.CanvasTexture(canvas);
-};
+//   return new THREE.CanvasTexture(canvas);
+// };
 
 
 const cube = new THREE.Mesh(geometry, materials);
@@ -255,7 +255,6 @@ materials[2].map = regularTextTextureTop; // Apply to a different face,
 materials[2].needsUpdate = true;
 
 
-
 /// =========================== ///
 // Function to fetch and update block height
 const fetchAndUpdateBlockHeight = () => {
@@ -276,20 +275,18 @@ const fetchAndUpdateMempoolCount = () => {
     .then(response => response.json())
     .then(txids => {
       const mempoolCount = txids.length; // Assuming txids is an array of transaction IDs
-      // console.log("Mempool Count:", mempoolCount); 
+      console.log("Mempool Count:", mempoolCount); 
       const texture = createTextTexture("Mempool Count", `${mempoolCount}`);
       materials[5].map = texture; // Update another specific face with mempool count
       materials[5].needsUpdate = true;
     })
     .catch(console.error);
 };
-
 // Call the functions to update the cube initially and periodically
 fetchAndUpdateBlockHeight();
 fetchAndUpdateMempoolCount();
 setInterval(fetchAndUpdateBlockHeight, 5000); // Update every 15 seconds or as needed
 setInterval(fetchAndUpdateMempoolCount, 5000); // Update every 15 seconds or as needed
-
 
 /// Function to fetch and update recommended fees
 const fetchAndUpdateRecommendedFees = () => {
