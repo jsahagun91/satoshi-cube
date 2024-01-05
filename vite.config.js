@@ -2,17 +2,17 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { resolve } from 'path'
 
 export default {
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        mempool: resolve(__dirname, 'mempool/mempool.html')
+      }
+    }
+  },
   plugins: [
     VitePWA({
       // your PWA plugin configuration
-      build: {
-        rollupOptions: {
-          input: {
-            main: resolve(__dirname, 'index.html'),
-            mempool: resolve(__dirname, 'mempool/mempool.html')
-          }
-        }
-      },
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'robots.txt'], // Additional assets to cache
       manifest: {
