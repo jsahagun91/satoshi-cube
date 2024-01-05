@@ -262,7 +262,7 @@ const fetchAndUpdateBlockHeight = () => {
   fetch('https://mempool.space/api/blocks/tip/height')
     .then(response => response.text())
     .then(blockHeight => {
-      console.log("Block Height:", blockHeight);
+      // console.log("Block Height:", blockHeight);
       const texture = createTextTexture("Block Height", `${blockHeight}`);
       materials[4].map = texture; // Update a specific face with block height
       materials[4].needsUpdate = true;
@@ -276,7 +276,7 @@ const fetchAndUpdateMempoolCount = () => {
     .then(response => response.json())
     .then(txids => {
       const mempoolCount = txids.length; // Assuming txids is an array of transaction IDs
-      console.log("Mempool Count:", mempoolCount); 
+      // console.log("Mempool Count:", mempoolCount); 
       const texture = createTextTexture("Mempool Count", `${mempoolCount}`);
       materials[5].map = texture; // Update another specific face with mempool count
       materials[5].needsUpdate = true;
@@ -296,9 +296,8 @@ const fetchAndUpdateRecommendedFees = () => {
   fetch('https://mempool.space/api/v1/fees/recommended')
     .then(response => response.json())
     .then(fees => {
-      console.log("Recommended Fees:", fees); // Log the fees for debugging
+      // console.log("Recommended Fees:", fees); 
 
-      // Assuming you want to display "fastestFee", "halfHourFee", and "hourFee"
       const feesText = `Hi: ${fees.fastestFee} \nLo: ${fees.hourFee}`;
       const texture = createTextTexture("Fees - Sats/vB", feesText);
       
@@ -317,7 +316,7 @@ const fetchAndUpdateTimeAvg = () => {
   fetch('https://mempool.space/api/v1/difficulty-adjustment')
     .then(response => response.json())
     .then(difficultyData => {
-      console.log("Difficulty Data:", difficultyData); // Log for debugging
+      // console.log("Difficulty Data:", difficultyData);
 
       const timeAvgMilliseconds = difficultyData.timeAvg; // Get the timeAvg in milliseconds
       const timeAvgSeconds = timeAvgMilliseconds / 1000; // Convert milliseconds to seconds
