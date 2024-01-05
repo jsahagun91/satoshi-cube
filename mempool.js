@@ -4,6 +4,27 @@ import gsap from 'gsap'
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
+// Function to create gradient texture
+function createGradientTexture() {
+  const width = 256;
+  const height = 256;
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext('2d');
+
+  // Create gradient (vertical gradient from top to bottom)
+  let grd = context.createLinearGradient(0, 0, 0, height);
+  grd.addColorStop(0, 'purple'); // start with purple
+  grd.addColorStop(1, 'skyblue'); // end with skyblue
+
+  // Fill with gradient
+  context.fillStyle = grd;
+  context.fillRect(0, 0, width, height);
+
+  return new THREE.CanvasTexture(canvas);
+}
+
 // Scene 
 const scene = new THREE.Scene();
 
@@ -13,13 +34,14 @@ scene.background = new THREE.Color('black');
 // Create our block
 const geometry = new RoundedBoxGeometry(5, 5, 5, 10, 0.5);
 
+const gradientTexture = createGradientTexture();
 const materials = [
-  new THREE.MeshPhongMaterial({ color: 'orange' }),
-  new THREE.MeshPhongMaterial({ color: 'orange' }),
-  new THREE.MeshPhongMaterial({ color: 'orange' }),
-  new THREE.MeshPhongMaterial({ color: 'orange' }),
-  new THREE.MeshPhongMaterial({ color: 'orange' }),
-  new THREE.MeshPhongMaterial({ color: 'orange' })
+  new THREE.MeshPhongMaterial({ color: 'skyblue' }),
+  new THREE.MeshPhongMaterial({ color: 'skyblue' }),
+  new THREE.MeshPhongMaterial({ color: 'skyblue' }),
+  new THREE.MeshPhongMaterial({ color: 'skyblue' }),
+  new THREE.MeshPhongMaterial({ color: 'skyblue' }),
+  new THREE.MeshPhongMaterial({ color: 'skyblue' })
 ];
 
 // Function to create a texture from text
@@ -29,9 +51,41 @@ const createTextTexture = (label, value) => {
 
   canvas.width = 256;
   canvas.height = 256;
+  
+  // Create gradient (vertical gradient from top to bottom)
+  let grd = context.createLinearGradient(0, 0, 0, canvas.height);
+  grd.addColorStop(0, 'purple'); // start with purple
+  grd.addColorStop(1, 'skyblue'); // end with skyblue
 
     // Set the background color to orange
-    context.fillStyle = 'orange';
+    context.fillStyle = grd;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+  context.fillStyle = 'black';
+  context.font = '32px Ropa Sans';
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+ 
+  // Draw the label and value on separate lines
+  context.fillText(label, 128, 106); // Position for the label
+  context.fillText(value, 128, 150); // Position for the value (below the label)
+
+  return new THREE.CanvasTexture(canvas);
+};
+const createTextTextureTop = (label, value) => {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  canvas.width = 256;
+  canvas.height = 256;
+  
+  // Create gradient (vertical gradient from top to bottom)
+  let grd = context.createLinearGradient(0, 0, 0, canvas.height);
+  grd.addColorStop(0, 'purple'); // start with purple
+  grd.addColorStop(1, 'skyblue'); // end with skyblue
+
+    // Set the background color to orange
+    context.fillStyle = 'purple';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
   context.fillStyle = 'black';
@@ -46,28 +100,6 @@ const createTextTexture = (label, value) => {
   return new THREE.CanvasTexture(canvas);
 };
 
-const createTimeTexture = (label) => {
-  const canvas = document.createElement('canvas');
-  const context = canvas.getContext('2d');
-
-  canvas.width = 256;
-  canvas.height = 256;
-
-    // Set the background color to orange
-    context.fillStyle = 'orange';
-    context.fillRect(0, 0, canvas.width, canvas.height);
-
-  context.fillStyle = 'black';
-  context.font = '32px Ropa Sans';
-  context.textAlign = 'center';
-  context.textBaseline = 'middle';
- 
-  // Time
-  context.fillText(label, 128, 128);
-
-  return new THREE.CanvasTexture(canvas);
-};
-
 const createDateTexture = (label) => {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
@@ -76,7 +108,7 @@ const createDateTexture = (label) => {
   canvas.height = 256;
 
     // Set the background color to orange
-    context.fillStyle = 'orange';
+    context.fillStyle = 'purple';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
   context.fillStyle = 'black';
@@ -177,7 +209,7 @@ const createRegularTextTextureTwo = (text) => {
   canvas.height = 256;
 
       // Set the background color to orange
-      context.fillStyle = 'orange';
+      context.fillStyle = 'skyblue';
       context.fillRect(0, 0, canvas.width, canvas.height);
 
   // Set background and text properties for regular text
@@ -190,94 +222,124 @@ const createRegularTextTextureTwo = (text) => {
   return new THREE.CanvasTexture(canvas);
 };
 
-const blockHalvening = () => {
-  fetch('https://blockchain.info/q/getblockcount')
-    .then(response => response.text())
-    .then(blockCount => {
-      const currentBlockCount = parseInt(blockCount, 10);
-      const blocksPerHalving = 210000;
-      const nextHalvingBlock = Math.ceil(currentBlockCount / blocksPerHalving) * blocksPerHalving;
-      const blocksUntilHalving = nextHalvingBlock - currentBlockCount;
-
-      const texture = createTextTexture("Blocks Until Halving", `${blocksUntilHalving}`);
-      materials[2].map = texture; // Update a specific face (e.g., the top face)
-      materials[2].needsUpdate = true;
-    })
-    .catch(console.error);
-};
-
-// Call the function to update the cube
-blockHalvening();
-
-
 const regularTextTwo = "₿";
 const regularTextTextureTwo = createRegularTextTextureTwo(regularTextTwo);
 materials[3].map = regularTextTextureTwo; // Apply to a different face,
 materials[3].needsUpdate = true;
 
+// Function to create a texture from regular text
+const createRegularTextTextureTop = (text) => {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  canvas.width = 256;
+  canvas.height = 256;
+
+      // Set the background color to orange
+      context.fillStyle = 'purple';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Set background and text properties for regular text
+  context.fillStyle = 'black'; // Black background
+  context.font = '32px Ropa Sans';
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.fillText(text, 128, 128);
+
+  return new THREE.CanvasTexture(canvas);
+};
+
+const regularTextTop = "";
+const regularTextTextureTop = createRegularTextTextureTop(regularTextTop);
+materials[2].map = regularTextTextureTop; // Apply to a different face,
+materials[2].needsUpdate = true;
+
 
 
 /// =========================== ///
-// Function to fetch block count and update the texture
-const fetchBlockCountAndUpdate = () => {
-  fetch('https://blockchain.info/q/getblockcount')
+// Function to fetch and update block height
+const fetchAndUpdateBlockHeight = () => {
+  fetch('https://mempool.space/api/blocks/tip/height')
     .then(response => response.text())
-    .then(blockCount => {
-      const texture = createTextTexture("Block Height", `${blockCount}`);
-      materials[4].map = texture; // Update a specific face (e.g., the top face)
+    .then(blockHeight => {
+      console.log("Block Height:", blockHeight);
+      const texture = createTextTexture("Block Height", `${blockHeight}`);
+      materials[4].map = texture; // Update a specific face with block height
       materials[4].needsUpdate = true;
     })
     .catch(console.error);
 };
 
-// Function to fetch Bitcoin prices and update the texture
-const fetchBitcoinPriceAndUpdate = () => {
-    fetch('https://blockchain.info/ticker')
-      .then(response => response.json())
-      .then(prices => {
-        const usdPrice = prices.USD.last;
-        const texture = createTextTexture("BTC/USD", `$${usdPrice}`);
-        materials[1].map = texture; // Update a specific face (e.g., the top face)
-        materials[1].needsUpdate = true;
-      })
-      .catch(console.error);
-  };
-
-// Initial fetch
-fetchBlockCountAndUpdate();
-fetchBitcoinPriceAndUpdate();
-
-// Refresh data every 15 seconds
-setInterval(fetchBlockCountAndUpdate, 15000);
-setInterval(fetchBitcoinPriceAndUpdate, 15000);
-setInterval(blockHalvening, 15000);
-
-// Function to update the time texture
-const updateTimeTexture = () => {
-  const now = new Date();
-  const timeString = now.toLocaleTimeString();
-  const timeTexture = createTimeTexture(timeString);
-  materials[0].map = timeTexture; // Update a specific face 
-  materials[0].needsUpdate = true;
+// Function to fetch and update mempool count
+const fetchAndUpdateMempoolCount = () => {
+  fetch('https://mempool.space/api/mempool/txids')
+    .then(response => response.json())
+    .then(txids => {
+      const mempoolCount = txids.length; // Assuming txids is an array of transaction IDs
+      console.log("Mempool Count:", mempoolCount); 
+      const texture = createTextTexture("Mempool Count", `${mempoolCount}`);
+      materials[5].map = texture; // Update another specific face with mempool count
+      materials[5].needsUpdate = true;
+    })
+    .catch(console.error);
 };
 
-// Function to update the date texture
-const updateDateTexture = () => {
-  const now = new Date();
-  const dateString = now.toLocaleDateString();
-  const dateTexture = createDateTexture(dateString);
-  materials[5].map = dateTexture; // Update another specific face 
-  materials[5].needsUpdate = true;
+// Call the functions to update the cube initially and periodically
+fetchAndUpdateBlockHeight();
+fetchAndUpdateMempoolCount();
+setInterval(fetchAndUpdateBlockHeight, 5000); // Update every 15 seconds or as needed
+setInterval(fetchAndUpdateMempoolCount, 5000); // Update every 15 seconds or as needed
+
+
+/// Function to fetch and update recommended fees
+const fetchAndUpdateRecommendedFees = () => {
+  fetch('https://mempool.space/api/v1/fees/recommended')
+    .then(response => response.json())
+    .then(fees => {
+      console.log("Recommended Fees:", fees); // Log the fees for debugging
+
+      // Assuming you want to display "fastestFee", "halfHourFee", and "hourFee"
+      const feesText = `Hi: ${fees.fastestFee} \nLo: ${fees.hourFee}`;
+      const texture = createTextTexture("Fees - Sats/vB", feesText);
+      
+      materials[1].map = texture; // Apply to a different face, for example, index 2
+      materials[1].needsUpdate = true;
+    })
+    .catch(console.error);
 };
 
-// Initial time update
-updateTimeTexture();
-updateDateTexture();
+// Initial fetch and periodic updates
+fetchAndUpdateRecommendedFees();
+setInterval(fetchAndUpdateRecommendedFees, 6000); // Update every minute or as needed
 
-// Update time every second and date every hour
-setInterval(updateTimeTexture, 1000);
-setInterval(updateDateTexture, 1000); // 3600000 ms = 1 hour
+// Function to fetch and update the average time
+const fetchAndUpdateTimeAvg = () => {
+  fetch('https://mempool.space/api/v1/difficulty-adjustment')
+    .then(response => response.json())
+    .then(difficultyData => {
+      console.log("Difficulty Data:", difficultyData); // Log for debugging
 
+      const timeAvgMilliseconds = difficultyData.timeAvg; // Get the timeAvg in milliseconds
+      const timeAvgSeconds = timeAvgMilliseconds / 1000; // Convert milliseconds to seconds
+      const minutes = Math.floor(timeAvgSeconds / 60); // Calculate minutes
+      const seconds = Math.floor(timeAvgSeconds % 60); // Calculate remaining seconds
+
+      // Formatting to Xm Ys style
+      const formattedTime = `${minutes}m ${seconds.toString().padStart(2, '0')}s`;
+
+      // Create the display text
+      const displayText = `${formattedTime}`;
+      const texture = createTextTexture("Avg Block Time", displayText);
+
+      materials[0].map = texture; // Update the appropriate face of the cube
+      materials[0].needsUpdate = true;
+    })
+    .catch(console.error);
+};
+
+// Initial fetch and periodic updates
+fetchAndUpdateTimeAvg();
+setInterval(fetchAndUpdateTimeAvg, 5000); // Update every minute or as needed
 
 
 // Function to update the cube's properties each frame
