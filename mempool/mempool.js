@@ -4,6 +4,10 @@ import gsap from 'gsap'
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
+// flags
+// let isBlockHeightLoaded = false;
+// let isMempoolCountLoaded = false;
+
 // Function to create gradient texture
 function createGradientTexture() {
   const width = 256;
@@ -25,6 +29,8 @@ function createGradientTexture() {
   return new THREE.CanvasTexture(canvas);
 }
 
+const gradientTexture = createGradientTexture();
+
 // Scene 
 const scene = new THREE.Scene();
 
@@ -34,7 +40,6 @@ scene.background = new THREE.Color('black');
 // Create our block
 const geometry = new RoundedBoxGeometry(5, 5, 5, 10, 0.5);
 
-const gradientTexture = createGradientTexture();
 const materials = [
   new THREE.MeshPhongMaterial({ color: 'skyblue' }),
   new THREE.MeshPhongMaterial({ color: 'skyblue' }),
@@ -187,18 +192,27 @@ window.addEventListener('resize', () => {
   renderer.setSize(sizes.width, sizes.height)
 })
 
-const loop = () => {
-  controls.update()
-  renderer.render(scene, camera)
-  window.requestAnimationFrame(loop)
-}
-loop()
+
 
 // Timeline magic
 const tl = gsap.timeline({ defaults: { duration: 1 } })
 tl.fromTo(cube.scale, {z:0, x:0, y:0}, {z:1, x:1, y:1})
 tl.fromTo('nav', {y: "-100%" }, { y: "0%" })
 // tl.fromTo(".title", { opacity: 0 }, { opacity: 1 })
+
+const loop = () => {
+  // // Increase rotation speed if not all data is loaded
+  // const rotationSpeed = (!isBlockHeightLoaded || !isMempoolCountLoaded) ? 0.08 : 0; // Fast: 0.1, Slow: 0.01
+   
+  // // Rotate cube
+  // cube.rotation.x += rotationSpeed;
+  // cube.rotation.y += rotationSpeed;
+
+ controls.update()
+ renderer.render(scene, camera)
+ window.requestAnimationFrame(loop)
+}
+loop()
 
 // Function to create a texture from regular text
 const createRegularTextTextureTwo = (text) => {
@@ -265,12 +279,15 @@ const fetchAndUpdateBlockHeight = () => {
       const texture = createTextTexture("Block Height", `${blockHeight}`);
       materials[4].map = texture; // Update a specific face with block height
       materials[4].needsUpdate = true;
+      
+      // flag
+      // isBlockHeightLoaded = true;
     })
     .catch(console.error);
 };
 
 // Function to fetch and update mempool count
-const fetchAndUpdateMempoolCount = () => {
+const fetchAndUpdateMempoolCount = async () => {
   fetch('https://mempool.space/api/mempool/txids')
     .then(response => response.json())
     .then(txids => {
@@ -279,6 +296,8 @@ const fetchAndUpdateMempoolCount = () => {
       const texture = createTextTexture("Mempool Count", `${mempoolCount}`);
       materials[5].map = texture; // Update another specific face with mempool count
       materials[5].needsUpdate = true;
+      // flag
+      // isMempoolCountLoaded = true;
     })
     .catch(console.error);
 };
@@ -355,8 +374,9 @@ function animate(time) {
   renderer.render(scene, camera);
 
   // Request the next frame
-  requestAnimationFrame(animate);
+  // requestAnimationFrame(animate);
 }
 
-// Start the animation loop
+
+// // Start the animation loop
 requestAnimationFrame(animate);

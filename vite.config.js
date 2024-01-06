@@ -16,8 +16,8 @@ export default {
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'robots.txt'], // Additional assets to cache
       manifest: {
-        name: `Satoshi's Cube`,
-        short_name: `Satoshi's Cube`,
+        name: "Satoshi's Cube",
+        short_name: "Satoshi's Cube",
         theme_color: '#000000',
         icons: [
           {
