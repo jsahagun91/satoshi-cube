@@ -53,7 +53,7 @@ nav ul {
 @media (max-width: 768px) { 
   nav {
     padding: 2rem; /* Reduced padding for smaller screens */
-    padding-top: 4rem;
+    padding-top: 3rem;
   }
 
   nav ul {
