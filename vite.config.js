@@ -18,6 +18,8 @@ export default {
       manifest: {
         name: "Timechain Cube",
         short_name: "Timechain Cube",
+        description: "Bitcoin data displayed on beautifully rotating cube.",
+        "display": "standalone",
         theme_color: '#000000',
         icons: [
           {
