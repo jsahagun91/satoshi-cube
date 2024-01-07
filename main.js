@@ -299,6 +299,3 @@ function animate(time) {
   // Request the next frame
   requestAnimationFrame(animate);
 }
-
-// Start the animation loop
-requestAnimationFrame(animate);
