@@ -374,7 +374,7 @@ function animate(time) {
   renderer.render(scene, camera);
 
   // Request the next frame
-  // requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 }
 
 

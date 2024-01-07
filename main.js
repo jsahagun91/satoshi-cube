@@ -279,9 +279,9 @@ setInterval(updateTimeTexture, 1000);
 setInterval(updateDateTexture, 1000); // 3600000 ms = 1 hour
 
 
-
 // Function to update the cube's properties each frame
 function animate(time) {
+
   // Convert time to seconds
   time *= 0.0005; 
 
@@ -298,4 +298,8 @@ function animate(time) {
 
   // Request the next frame
   requestAnimationFrame(animate);
+
 }
+
+// Start the animation loop
+requestAnimationFrame(animate);
