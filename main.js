@@ -121,7 +121,7 @@ scene.add(hemiLight);
 
 // Camera
 const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 100)
-camera.position.z = 20
+camera.position.z = 25
 scene.add(camera)
 
 // Renderer 
