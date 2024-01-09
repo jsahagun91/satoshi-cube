@@ -109,6 +109,7 @@ function fetchBlockData() {
     .catch(console.error);
 }
 
+// FORM
 function fetchBlockDataForHeight(blockHeight) {
   fetch(`https://mempool.space/api/v1/blocks/${blockHeight}`)
       .then(response => response.json())
@@ -130,6 +131,8 @@ form.addEventListener('submit', function(event) {
         fetchBlockDataForHeight(blockHeight);
     }
 });
+//
+
 
 // Initial fetch
 fetchBlockData();

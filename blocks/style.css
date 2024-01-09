@@ -73,6 +73,7 @@ footer {
 
 #blockHeightForm input,
 #blockHeightForm button {
+    font-family: 'Ropa Sans', sans-serif;
     color: white; /* Text color for input and button */
     background-color: #111; /* Background color for input and button */
     border: 1px solid #222; /* Border for input and button */
