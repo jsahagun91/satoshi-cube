@@ -6,7 +6,8 @@ export default {
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        mempool: resolve(__dirname, 'mempool/index.html')
+        mempool: resolve(__dirname, 'mempool/index.html'),
+        mempoolBlocks: resolve(__dirname, 'blocks/index.html')
       }
     }
   },

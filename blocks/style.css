@@ -50,6 +50,17 @@ nav ul {
   transform: translate(-50%, -25%);
 }
 
+footer {
+  color: white;
+  bottom: 15%;
+  z-index: 2;
+  position: absolute;
+  padding: 4rem 8rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0);
+}
+
 /* Media query for mobile devices */
 @media (max-width: 768px) { 
   nav {

@@ -25,6 +25,7 @@ nav {
   padding: 4rem 8rem;
   display: flex;
   justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0);
 }
 
 nav a {
