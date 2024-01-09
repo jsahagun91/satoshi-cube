@@ -109,6 +109,28 @@ function fetchBlockData() {
     .catch(console.error);
 }
 
+function fetchBlockDataForHeight(blockHeight) {
+  fetch(`https://mempool.space/api/v1/blocks/${blockHeight}`)
+      .then(response => response.json())
+      .then(blockData => {
+          console.log("Block Data for Height " + blockHeight + ":", blockData); 
+          const txCount = blockData[0].tx_count;
+          console.log("Transaction Count:", txCount);
+          createParticles(txCount);
+      })
+      .catch(console.error);
+}
+
+
+const form = document.getElementById('blockHeightForm');
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const blockHeight = document.getElementById('blockHeightInput').value;
+    if (blockHeight) {
+        fetchBlockDataForHeight(blockHeight);
+    }
+});
+
 // Initial fetch
 fetchBlockData();
 

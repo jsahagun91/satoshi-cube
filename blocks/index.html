@@ -31,7 +31,12 @@
     <script type="module" src="./mempool.js"></script>
 
     <footer id="blockHeightFooter" >
-      Block: <span id="blockHeight"> Loading...</span>
+      Block Height: <span id="blockHeight"> Loading...</span>
+      <form id="blockHeightForm">
+        <input type="number" id="blockHeightInput" placeholder="Enter Block Height" required>
+        <button type="submit">Load Transactions</button>
+    </form>
+    
   </footer>
 
   <!-- <script>
