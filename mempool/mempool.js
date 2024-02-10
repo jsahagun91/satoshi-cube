@@ -201,12 +201,6 @@ tl.fromTo('nav', {y: "-100%" }, { y: "0%" })
 // tl.fromTo(".title", { opacity: 0 }, { opacity: 1 })
 
 const loop = () => {
-  // // Increase rotation speed if not all data is loaded
-  // const rotationSpeed = (!isBlockHeightLoaded || !isMempoolCountLoaded) ? 0.08 : 0; // Fast: 0.1, Slow: 0.01
-   
-  // // Rotate cube
-  // cube.rotation.x += rotationSpeed;
-  // cube.rotation.y += rotationSpeed;
 
  controls.update()
  renderer.render(scene, camera)

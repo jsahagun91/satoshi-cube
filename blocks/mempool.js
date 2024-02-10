@@ -3,6 +3,7 @@ import "./style.css";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from 'gsap'
 
+
 // Scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color('black');
