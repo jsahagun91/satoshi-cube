@@ -255,6 +255,7 @@ setInterval(fetchBlockCountAndUpdate, 15000);
 setInterval(fetchBitcoinPriceAndUpdate, 15000);
 setInterval(blockHalvening, 15000);
 
+
 // Function to update the time texture
 const updateTimeTexture = () => {
   const now = new Date();
