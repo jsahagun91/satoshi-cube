@@ -146,3 +146,30 @@ const animate = () => {
 };
 
 animate();
+
+// Cursor Grab 
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+function onMouseMove(event) {
+    // Calculate mouse position in normalized device coordinates
+    // (-1 to +1) for both components
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    // Update the picking ray with the camera and mouse position
+    raycaster.setFromCamera(mouse, camera);
+
+    // Calculate objects intersecting the picking ray
+    const intersects = raycaster.intersectObjects([cube]);
+
+    // Change cursor style based on whether the cube is intersected
+    if (intersects.length > 0) {
+        canvas.style.cursor = 'grab';
+    } else {
+        canvas.style.cursor = 'default';
+    }
+}
+
+// Listen for mouse move events
+window.addEventListener('mousemove', onMouseMove, false);

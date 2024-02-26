@@ -274,8 +274,6 @@ const fetchAndUpdateBlockHeight = () => {
       materials[4].map = texture; // Update a specific face with block height
       materials[4].needsUpdate = true;
       
-      // flag
-      // isBlockHeightLoaded = true;
     })
     .catch(console.error);
 };
@@ -290,8 +288,6 @@ const fetchAndUpdateMempoolCount = async () => {
       const texture = createTextTexture("Mempool Count", `${mempoolCount}`);
       materials[5].map = texture; // Update another specific face with mempool count
       materials[5].needsUpdate = true;
-      // flag
-      // isMempoolCountLoaded = true;
     })
     .catch(console.error);
 };
@@ -311,7 +307,7 @@ const fetchAndUpdateRecommendedFees = () => {
       const feesText = `Hi: ${fees.fastestFee} \nLo: ${fees.hourFee}`;
       const texture = createTextTexture("Fees - Sats/vB", feesText);
       
-      materials[1].map = texture; // Apply to a different face, for example, index 2
+      materials[1].map = texture; // Apply to a different face
       materials[1].needsUpdate = true;
     })
     .catch(console.error);
@@ -319,7 +315,7 @@ const fetchAndUpdateRecommendedFees = () => {
 
 // Initial fetch and periodic updates
 fetchAndUpdateRecommendedFees();
-setInterval(fetchAndUpdateRecommendedFees, 6000); // Update every minute or as needed
+setInterval(fetchAndUpdateRecommendedFees, 6000); // Update every minute
 
 // Function to fetch and update the average time
 const fetchAndUpdateTimeAvg = () => {
@@ -348,7 +344,7 @@ const fetchAndUpdateTimeAvg = () => {
 
 // Initial fetch and periodic updates
 fetchAndUpdateTimeAvg();
-setInterval(fetchAndUpdateTimeAvg, 5000); // Update every minute or as needed
+setInterval(fetchAndUpdateTimeAvg, 5000); // Time interval
 
 
 // Function to update the cube's properties each frame
@@ -372,5 +368,33 @@ function animate(time) {
 }
 
 
-// // Start the animation loop
+// Start the animation loop
 requestAnimationFrame(animate);
+
+
+// Cursor Grab 
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+function onMouseMove(event) {
+    // Calculate mouse position in normalized device coordinates
+    // (-1 to +1) for both components
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    // Update the picking ray with the camera and mouse position
+    raycaster.setFromCamera(mouse, camera);
+
+    // Calculate objects intersecting the picking ray
+    const intersects = raycaster.intersectObjects([cube]);
+
+    // Change cursor style based on whether the cube is intersected
+    if (intersects.length > 0) {
+        canvas.style.cursor = 'grab';
+    } else {
+        canvas.style.cursor = 'default';
+    }
+}
+
+// Listen for mouse move events
+window.addEventListener('mousemove', onMouseMove, false);
