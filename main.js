@@ -220,7 +220,7 @@ blockHalvening();
 
 /// LOGO ON CUBE
 const textureLoader = new THREE.TextureLoader();
-textureLoader.load('./assets/halvingparty3.jpg', function(texture) {
+textureLoader.load('/assets/halvingparty3.jpg', function(texture) {
 
    // Apply the texture to the material
    materials[3].map = texture;
