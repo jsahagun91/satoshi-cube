@@ -220,7 +220,7 @@ blockHalvening();
 
 /// LOGO ON CUBE
 const textureLoader = new THREE.TextureLoader();
-textureLoader.load('/assets/images/halvingparty3.jpg', function(texture) {
+textureLoader.load({halvingparty}, function(texture) {
 
    // Apply the texture to the material
    materials[3].map = texture;
@@ -346,5 +346,6 @@ function onMouseMove(event) {
     }
 }
 
+import halvingparty from './assets/images/halvingparty3.jpg';
 // Listen for mouse move events
 window.addEventListener('mousemove', onMouseMove, false);
