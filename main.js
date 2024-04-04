@@ -213,10 +213,24 @@ const blockHalvening = () => {
 blockHalvening();
 
 
-const regularTextTwo = "₿";
-const regularTextTextureTwo = createRegularTextTextureTwo(regularTextTwo);
-materials[3].map = regularTextTextureTwo; //  update specific face
-materials[3].needsUpdate = true;
+// const regularTextTwo = "₿";
+// const regularTextTextureTwo = createRegularTextTextureTwo(regularTextTwo);
+// materials[3].map = regularTextTextureTwo; //  update specific face
+// materials[3].needsUpdate = true;
+
+/// LOGO ON CUBE
+const textureLoader = new THREE.TextureLoader();
+textureLoader.load('./assets/halvingparty3.jpg', function(texture) {
+
+   // Apply the texture to the material
+   materials[3].map = texture;
+
+   // Change the material color to orange and mix it with the texture
+
+  materials[3].needsUpdate = true;
+}, undefined, function(err) {
+  console.error('an error has occured while loading texture', err);
+});
 
 
 
@@ -308,7 +322,7 @@ function animate(time) {
 // Original loop
 requestAnimationFrame(animate);
 
-
+// Cursor Grab 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
