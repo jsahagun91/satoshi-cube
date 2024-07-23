@@ -267,8 +267,15 @@ const updateTimeTexture = () => {
 // Function to update the date texture
 const updateDateTexture = () => {
   const now = new Date();
-  const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-  const dateString = now.toLocaleDateString('es-us', options);
+  
+  // Define options to get day, month, and year parts separately
+  const day = now.toLocaleDateString('es-US', { day: '2-digit' });
+  const month = now.toLocaleDateString('es-US', { month: '2-digit' });
+  const year = now.toLocaleDateString('es-US', { year: 'numeric' });
+
+  // Construct the date string with day first and month second
+  const dateString = `${day}/${month}/${year}`;
+
   const dateTexture = createDateTexture(dateString);
   materials[5].map = dateTexture; // Update specific face 
   materials[5].needsUpdate = true;
