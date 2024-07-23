@@ -7,7 +7,8 @@ export default {
       input: {
         main: resolve(__dirname, 'index.html'),
         mempool: resolve(__dirname, 'mempool/index.html'),
-        mempoolBlocks: resolve(__dirname, 'blocks/index.html')
+        mempoolBlocks: resolve(__dirname, 'blocks/index.html'),
+        mainEs: resolve(__dirname, 'es/index.html')
       }
     }
   },

@@ -50,39 +50,6 @@ nav ul {
   transform: translate(-50%, -25%);
 }
 
-footer {
-  color: white;
-  z-index: 2;
-  position: absolute;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-  padding: 4rem 8rem;
-  display: flex;
-  justify-content: space-between;
-  background-color: rgba(255, 255, 255, 0);
-  align-items: center; /* Ensure items are centered vertically */
-}
-
-footer a {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-}
-
-footer ul {
-  list-style: none;
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  padding: 0;
-  margin: 0;
-}
-
-footer li {
-  margin: 0; /* Ensure no extra margin is added to list items */
-}
-
 /* Media query for mobile devices */
 @media (max-width: 768px) { 
   nav {
@@ -102,17 +69,6 @@ footer li {
     left: 50%;
     top: 25%;
     transform: translate(-50%, -25%);
-  }
-
-  footer {
-    flex-direction: row; /* Stack items vertically on mobile */
-    padding: 2rem; /* Adjust padding for mobile */
-  }
-
-  footer ul {
-    flex-direction: row; /* Stack list items vertically on mobile */
-    gap: 1rem; /* Adjust gap between items */
-    align-items: center; /* Center items horizontally */
   }
 
 }
